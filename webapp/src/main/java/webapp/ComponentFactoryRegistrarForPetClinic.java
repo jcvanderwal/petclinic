@@ -23,7 +23,7 @@ import com.google.inject.Singleton;
 import org.apache.isis.viewer.wicket.viewer.registries.components.ComponentFactoryRegistrarDefault;
 
 @Singleton
-public class ComponentFactoryRegistrarForSimpleApp extends ComponentFactoryRegistrarDefault {
+public class ComponentFactoryRegistrarForPetClinic extends ComponentFactoryRegistrarDefault {
 
     @Override
     public void addComponentFactories(ComponentFactoryList componentFactories) {

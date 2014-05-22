@@ -16,7 +16,7 @@
  */
 package integration;
 
-import dom.simple.SimpleObjects;
+import com.example.petclinic.dom.Pets;
 
 import org.apache.isis.core.commons.config.IsisConfiguration;
 import org.apache.isis.core.commons.config.IsisConfigurationDefault;
@@ -31,9 +31,9 @@ import org.apache.isis.objectstore.jdo.service.RegisterEntities;
  * Holds an instance of an {@link IsisSystemForTest} as a {@link ThreadLocal} on the current thread,
  * initialized with ToDo app's domain services. 
  */
-public class SimpleAppSystemInitializer {
+public class PetClinicSystemInitializer {
     
-    private SimpleAppSystemInitializer(){}
+    private PetClinicSystemInitializer(){}
 
     public static IsisSystemForTest initIsft() {
         IsisSystemForTest isft = IsisSystemForTest.getElseNull();
@@ -53,7 +53,7 @@ public class SimpleAppSystemInitializer {
             with(new DataNucleusPersistenceMechanismInstaller());
             
             withServices(
-                    new SimpleObjects(),
+                    new Pets(),
                     new WrapperFactoryDefault(),
                     new IsisJdoSupportImpl()
                     );

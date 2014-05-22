@@ -16,61 +16,62 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dom.simple;
+package com.example.petclinic.dom;
 
-import javax.jdo.annotations.IdentityType;
-import javax.jdo.annotations.VersionStrategy;
+import java.util.List;
 
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.ActionSemantics;
+import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.annotation.Bookmarkable;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.ObjectType;
-import org.apache.isis.applib.annotation.Title;
-import org.apache.isis.applib.util.ObjectContracts;
+import org.apache.isis.applib.annotation.Named;
 
-@javax.jdo.annotations.PersistenceCapable(identityType = IdentityType.DATASTORE)
-@javax.jdo.annotations.DatastoreIdentity(
-        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-        column = "id")
-@javax.jdo.annotations.Version(
-        strategy = VersionStrategy.VERSION_NUMBER,
-        column = "version")
-@ObjectType("SIMPLE")
-@Bookmarkable
-public class SimpleObject implements Comparable<SimpleObject> {
+public class Pets {
 
     // //////////////////////////////////////
-    // Name (property)
+    // Identification in the UI
     // //////////////////////////////////////
 
-    private String name;
+    public String getId() {
+        return "pet";
+    }
 
-    @javax.jdo.annotations.Column(allowsNull = "false")
-    @Title(sequence = "1")
+    public String iconName() {
+        return "Pet";
+    }
+
+    // //////////////////////////////////////
+    // List (action)
+    // //////////////////////////////////////
+
+    @Bookmarkable
+    @ActionSemantics(Of.SAFE)
     @MemberOrder(sequence = "1")
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
+    public List<Pet> allPets() {
+        return container.allInstances(Pet.class);
     }
 
     // //////////////////////////////////////
-    // compareTo
+    // Create (action)
     // //////////////////////////////////////
 
-    @Override
-    public int compareTo(SimpleObject other) {
-        return ObjectContracts.compare(this, other, "name");
+    @MemberOrder(sequence = "2")
+    public Pet addPet(
+            final @Named("Name") String name,
+            final @Named("Species") PetSpecies petSpecies) {
+        final Pet obj = container.newTransientInstance(Pet.class);
+        obj.setName(name);
+        obj.setPetSpecies(petSpecies);
+        container.persistIfNotAlready(obj);
+        return obj;
     }
 
     // //////////////////////////////////////
-    // Injected
+    // Injected services
     // //////////////////////////////////////
 
     @javax.inject.Inject
-    @SuppressWarnings("unused")
-    private DomainObjectContainer container;
+    DomainObjectContainer container;
 
 }

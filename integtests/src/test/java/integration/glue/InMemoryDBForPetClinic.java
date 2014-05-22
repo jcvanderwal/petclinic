@@ -14,34 +14,27 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package dom.simple;
+package integration.glue;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
+import com.example.petclinic.dom.Pet;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.apache.isis.core.specsupport.scenarios.InMemoryDB;
+import org.apache.isis.core.specsupport.scenarios.ScenarioExecution;
 
-public class SimpleObjectTest_name {
-
-    private SimpleObject simpleObject;
-
-    @Before
-    public void setUp() throws Exception {
-        simpleObject = new SimpleObject();
+public class InMemoryDBForPetClinic extends InMemoryDB {
+    
+    public InMemoryDBForPetClinic(ScenarioExecution scenarioExecution) {
+        super(scenarioExecution);
     }
-
-    @Test
-    public void happyCase() throws Exception {
-        // given
-        assertThat(simpleObject.getName(), is(nullValue()));
-
-        // when
-        simpleObject.setName("Foobar");
-
-        // then
-        assertThat(simpleObject.getName(), is("Foobar"));
+    
+    /**
+     * Hook to initialize if possible.
+     */
+    @Override
+    protected void init(Object obj, String str) {
+        if(obj instanceof Pet) {
+            Pet toDoItem = (Pet) obj;
+            toDoItem.setName(str);
+        }
     }
-
 }

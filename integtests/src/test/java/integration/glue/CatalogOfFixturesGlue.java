@@ -16,9 +16,10 @@
  */
 package integration.glue;
 
+import com.example.petclinic.dom.Pet;
+import com.example.petclinic.fixture.PetClinicFixture;
+
 import cucumber.api.java.Before;
-import dom.simple.SimpleObject;
-import fixture.simple.SimpleObjectsFixture;
 
 import org.apache.isis.core.specsupport.scenarios.InMemoryDB;
 import org.apache.isis.core.specsupport.specs.CukeGlueAbstract;
@@ -26,20 +27,20 @@ import org.apache.isis.core.specsupport.specs.CukeGlueAbstract;
 public class CatalogOfFixturesGlue extends CukeGlueAbstract {
 
     
-    @Before(value={"@unit", "@SimpleObjectsFixture"}, order=20000)
+    @Before(value={"@unit", "@PetClinicFixture"}, order=20000)
     public void unitFixtures() throws Throwable {
-        final InMemoryDB inMemoryDB = new InMemoryDBForSimpleApp(this.scenarioExecution());
-        inMemoryDB.getElseCreate(SimpleObject.class, "Foo");
-        inMemoryDB.getElseCreate(SimpleObject.class, "Bar");
-        inMemoryDB.getElseCreate(SimpleObject.class, "Baz");
+        final InMemoryDB inMemoryDB = new InMemoryDBForPetClinic(this.scenarioExecution());
+        inMemoryDB.getElseCreate(Pet.class, "Foo");
+        inMemoryDB.getElseCreate(Pet.class, "Bar");
+        inMemoryDB.getElseCreate(Pet.class, "Baz");
         putVar("isis", "in-memory-db", inMemoryDB);
     }
 
     // //////////////////////////////////////
 
-    @Before(value={"@integration", "@SimpleObjectsFixture"}, order=20000)
+    @Before(value={"@integration", "@PetClinicFixture"}, order=20000)
     public void integrationFixtures() throws Throwable {
-        scenarioExecution().install(new SimpleObjectsFixture());
+        scenarioExecution().install(new PetClinicFixture());
     }
     
 

@@ -20,9 +20,9 @@ package webapp.prototyping;
 
 import java.util.List;
 
-import dom.simple.SimpleObject;
-import dom.simple.SimpleObjects;
-import fixture.simple.SimpleObjectsFixture;
+import com.example.petclinic.dom.Pet;
+import com.example.petclinic.dom.Pets;
+import com.example.petclinic.fixture.PetClinicFixture;
 
 import org.apache.isis.applib.AbstractService;
 import org.apache.isis.applib.annotation.Named;
@@ -33,12 +33,12 @@ import org.apache.isis.core.runtime.fixtures.FixturesInstallerDelegate;
  * Enables fixtures to be installed from the application.
  */
 @Named("Prototyping")
-public class SimpleObjectsFixturesService extends AbstractService {
+public class PetClinicFixturesService extends AbstractService {
 
     @Prototype
     public String installFixtures() {
         final FixturesInstallerDelegate installer = new FixturesInstallerDelegate().withOverride();
-        installer.addFixture(new SimpleObjectsFixture());
+        installer.addFixture(new PetClinicFixture());
         installer.installFixtures();
         return "Example fixtures installed";
     }
@@ -46,18 +46,18 @@ public class SimpleObjectsFixturesService extends AbstractService {
     // //////////////////////////////////////
 
     @Prototype
-    public SimpleObject installFixturesAndReturnFirst() {
+    public Pet installFixturesAndReturnFirst() {
         installFixtures();
-        List<SimpleObject> all = simpleObjects.listAll();
+        List<Pet> all = pets.allPets();
         return !all.isEmpty() ? all.get(0) : null;
     }
 
     
     // //////////////////////////////////////
 
-    private SimpleObjects simpleObjects;
-    public void injectSimpleObjects(SimpleObjects simpleObjects) {
-        this.simpleObjects = simpleObjects;
+    private Pets pets;
+    public void injectPets(Pets pets) {
+        this.pets = pets;
     }
 
 }

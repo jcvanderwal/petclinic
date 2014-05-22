@@ -17,21 +17,22 @@
  *  under the License.
  */
 
-package fixture.simple;
+package com.example.petclinic.fixture;
 
-import dom.simple.SimpleObject;
-import dom.simple.SimpleObjects;
+import com.example.petclinic.dom.Pet;
+import com.example.petclinic.dom.PetSpecies;
+import com.example.petclinic.dom.Pets;
 
 import org.apache.isis.applib.fixtures.AbstractFixture;
 import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
 
-public class SimpleObjectsFixture extends AbstractFixture {
+public class PetClinicFixture extends AbstractFixture {
 
     
     @Override
     public void install() {
 
-        isisJdoSupport.executeUpdate("delete from \"SimpleObject\"");
+        isisJdoSupport.executeUpdate("delete from \"Pet\"");
 
         installObjects();
         
@@ -40,16 +41,16 @@ public class SimpleObjectsFixture extends AbstractFixture {
 
     private void installObjects() {
 
-        create("Foo");
-        create("Bar");
-        create("Baz");
+        create("Bello", PetSpecies.DOG);
+        create("Hector", PetSpecies.DOG);
+        create("Tweety", PetSpecies.BIRD);
     }
 
 
     // //////////////////////////////////////
 
-    private SimpleObject create(final String name) {
-        return simpleObjects.create(name);
+    private Pet create(final String name, PetSpecies petSpecies) {
+        return pets.addPet(name, petSpecies);
     }
 
 
@@ -58,7 +59,7 @@ public class SimpleObjectsFixture extends AbstractFixture {
     // //////////////////////////////////////
 
     @javax.inject.Inject
-    private SimpleObjects simpleObjects;
+    private Pets pets;
 
     @javax.inject.Inject
     private IsisJdoSupport isisJdoSupport;

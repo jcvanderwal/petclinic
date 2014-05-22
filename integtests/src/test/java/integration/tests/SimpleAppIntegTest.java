@@ -18,7 +18,7 @@
  */
 package integration.tests;
 
-import integration.SimpleAppSystemInitializer;
+import integration.PetClinicSystemInitializer;
 
 import org.junit.BeforeClass;
 
@@ -31,7 +31,7 @@ public abstract class SimpleAppIntegTest extends IntegrationTestAbstract {
     @BeforeClass
     public static void initClass() {
         org.apache.log4j.PropertyConfigurator.configure("logging.properties");
-        SimpleAppSystemInitializer.initIsft();
+        PetClinicSystemInitializer.initIsft();
         
         // instantiating will install onto ThreadLocal
         new ScenarioExecutionForIntegration();

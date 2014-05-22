@@ -56,13 +56,13 @@ import org.apache.isis.viewer.wicket.viewer.registries.pages.PageClassListDefaul
  *    &lt;filter-class>org.apache.wicket.protocol.http.WicketFilter&lt;/filter-class>
  *    &lt;init-param>
  *      &lt;param-name>applicationClassName&lt;/param-name>
- *      &lt;param-value>webapp.SimpleApplication&lt;/param-value>
+ *      &lt;param-value>webapp.PetClinicApplication&lt;/param-value>
  *    &lt;/init-param>
  * &lt;/filter>
  * </pre>
  * 
  */
-public class SimpleApplication extends IsisWicketApplication {
+public class PetClinicApplication extends IsisWicketApplication {
 
     private static final long serialVersionUID = 1L;
 
@@ -115,7 +115,7 @@ public class SimpleApplication extends IsisWicketApplication {
         final Module simpleOverrides = new AbstractModule() {
             @Override
             protected void configure() {
-                bind(ComponentFactoryRegistrar.class).to(ComponentFactoryRegistrarForSimpleApp.class);
+                bind(ComponentFactoryRegistrar.class).to(ComponentFactoryRegistrarForPetClinic.class);
                 
                 bind(String.class).annotatedWith(Names.named("applicationName")).toInstance("Simple App");
                 bind(String.class).annotatedWith(Names.named("applicationCss")).toInstance("css/application.css");
@@ -131,7 +131,7 @@ public class SimpleApplication extends IsisWicketApplication {
 
     private static String readLines(final String resourceName) {
         try {
-            List<String> readLines = Resources.readLines(Resources.getResource(SimpleApplication.class, resourceName), Charset.defaultCharset());
+            List<String> readLines = Resources.readLines(Resources.getResource(PetClinicApplication.class, resourceName), Charset.defaultCharset());
             final String aboutText = Joiner.on("\n").join(readLines);
             return aboutText;
         } catch (IOException e) {

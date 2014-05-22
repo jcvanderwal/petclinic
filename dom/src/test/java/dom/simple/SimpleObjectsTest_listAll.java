@@ -40,7 +40,7 @@ public class SimpleObjectsTest_listAll {
 
     @Mock
     private DomainObjectContainer mockContainer;
-    
+
     private SimpleObjects simpleObjects;
 
     @Before
@@ -48,23 +48,23 @@ public class SimpleObjectsTest_listAll {
         simpleObjects = new SimpleObjects();
         simpleObjects.container = mockContainer;
     }
-    
+
     @Test
     public void happyCase() throws Exception {
-        
+
         // given
         final List<SimpleObject> all = Lists.newArrayList();
-        
+
         context.checking(new Expectations() {
             {
                 oneOf(mockContainer).allInstances(SimpleObject.class);
                 will(returnValue(all));
             }
         });
-        
+
         // when
         final List<SimpleObject> list = simpleObjects.listAll();
-        
+
         // then
         assertThat(list, is(all));
     }

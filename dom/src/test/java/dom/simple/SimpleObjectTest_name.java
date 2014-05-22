@@ -16,9 +16,9 @@
  */
 package dom.simple;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
-import dom.simple.SimpleObject;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,17 +31,17 @@ public class SimpleObjectTest_name {
     public void setUp() throws Exception {
         simpleObject = new SimpleObject();
     }
-    
+
     @Test
     public void happyCase() throws Exception {
         // given
         assertThat(simpleObject.getName(), is(nullValue()));
-        
+
         // when
         simpleObject.setName("Foobar");
-        
+
         // then
         assertThat(simpleObject.getName(), is("Foobar"));
     }
-    
+
 }

@@ -16,9 +16,8 @@
  */
 package dom.simple;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import dom.simple.SimpleObject;
 
 import org.jmock.Expectations;
 import org.jmock.Sequence;
@@ -38,7 +37,7 @@ public class SimpleObjectsTest_create {
 
     @Mock
     private DomainObjectContainer mockContainer;
-    
+
     private SimpleObjects simpleObjects;
 
     @Before
@@ -46,28 +45,28 @@ public class SimpleObjectsTest_create {
         simpleObjects = new SimpleObjects();
         simpleObjects.container = mockContainer;
     }
-    
+
     @Test
     public void happyCase() throws Exception {
-        
+
         // given
         final SimpleObject simpleObject = new SimpleObject();
-        
+
         final Sequence seq = context.sequence("create");
         context.checking(new Expectations() {
             {
                 oneOf(mockContainer).newTransientInstance(SimpleObject.class);
                 inSequence(seq);
                 will(returnValue(simpleObject));
-                
+
                 oneOf(mockContainer).persistIfNotAlready(simpleObject);
                 inSequence(seq);
             }
         });
-        
+
         // when
         final SimpleObject obj = simpleObjects.create("Foobar");
-        
+
         // then
         assertThat(obj, is(simpleObject));
         assertThat(obj.getName(), is("Foobar"));

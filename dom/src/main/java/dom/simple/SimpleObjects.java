@@ -19,21 +19,15 @@
 package dom.simple;
 
 import java.util.List;
-import java.util.Map;
-
-import javax.annotation.PostConstruct;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.annotation.Bookmarkable;
-import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.Programmatic;
 
 public class SimpleObjects {
-
 
     // //////////////////////////////////////
     // Identification in the UI
@@ -50,7 +44,7 @@ public class SimpleObjects {
     // //////////////////////////////////////
     // List (action)
     // //////////////////////////////////////
-    
+
     @Bookmarkable
     @ActionSemantics(Of.SAFE)
     @MemberOrder(sequence = "1")
@@ -58,11 +52,10 @@ public class SimpleObjects {
         return container.allInstances(SimpleObject.class);
     }
 
-
     // //////////////////////////////////////
     // Create (action)
     // //////////////////////////////////////
-    
+
     @MemberOrder(sequence = "2")
     public SimpleObject create(
             final @Named("Name") String name) {
@@ -76,7 +69,7 @@ public class SimpleObjects {
     // Injected services
     // //////////////////////////////////////
 
-    @javax.inject.Inject 
+    @javax.inject.Inject
     DomainObjectContainer container;
 
 }

@@ -17,14 +17,14 @@
   <booleanAttribute value="true" key="org.eclipse.jdt.debug.ui.INCLUDE_EXTERNAL_JARS"/>
   <listAttribute key="org.eclipse.jdt.launching.CLASSPATH">
     <listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#13;&#10;&lt;runtimeClasspathEntry containerPath=&quot;org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6&quot; path=&quot;1&quot; type=&quot;4&quot;/&gt;&#13;&#10;"/>
-    <listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#13;&#10;&lt;runtimeClasspathEntry path=&quot;3&quot; projectName=&quot;simple_wicket_restful_jdo-webapp&quot; type=&quot;1&quot;/&gt;&#13;&#10;"/>
+    <listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#13;&#10;&lt;runtimeClasspathEntry path=&quot;3&quot; projectName=&quot;petclinic-webapp&quot; type=&quot;1&quot;/&gt;&#13;&#10;"/>
     <listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#13;&#10;&lt;runtimeClasspathEntry containerPath=&quot;org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER&quot; path=&quot;3&quot; type=&quot;4&quot;/&gt;&#13;&#10;"/>
   </listAttribute>
   <stringAttribute value="org.eclipse.m2e.launchconfig.classpathProvider" key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER"/>
   <booleanAttribute value="true" key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH"/>
   <stringAttribute value="org.apache.isis.WebServer" key="org.eclipse.jdt.launching.MAIN_TYPE"/>
   <stringAttribute value="--port 8080 --type PROTOTYPE" key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS"/>
-  <stringAttribute value="simple_wicket_restful_jdo-webapp" key="org.eclipse.jdt.launching.PROJECT_ATTR"/>
+  <stringAttribute value="petclinic-webapp" key="org.eclipse.jdt.launching.PROJECT_ATTR"/>
   <stringAttribute value="org.eclipse.m2e.launchconfig.sourcepathProvider" key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER"/>
   <stringAttribute value="${jrebel_args} -Drebel.log=false -Drebel.plugins=c:/github/danhaywood/isis-jrebel-plugin/target/danhaywood-isis-jrebel-plugin-1.0.0-SNAPSHOT.jar -Disis-jrebel-plugin.packagePrefix=dom.simple -Disis-jrebel-plugin.loggingLevel=warn -XX:MaxPermSize=128m" key="org.eclipse.jdt.launching.VM_ARGUMENTS"/>
 </launchConfiguration>

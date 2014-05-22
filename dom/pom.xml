@@ -26,7 +26,7 @@
 	</parent>
 
 	<artifactId>petclinic-dom</artifactId>
-	<name>Simple Wicket/Restful/JDO DOM</name>
+	<name>PetClinic DOM</name>
 
 	<build>
         <resources>

@@ -26,7 +26,7 @@
     </parent>
 
 	<artifactId>petclinic-fixture</artifactId>
-	<name>Simple Wicket/Restful/JDO Fixtures</name>
+	<name>PetClinic Fixtures</name>
 
 	<dependencies>
 		<dependency>

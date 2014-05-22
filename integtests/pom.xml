@@ -26,7 +26,7 @@
     </parent>
 
 	<artifactId>petclinic-integtests</artifactId>
-	<name>Simple Wicket/Restful/JDO Integration Tests</name>
+	<name>PetClinic Tests</name>
 
     <build>
         <testResources>

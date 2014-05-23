@@ -19,6 +19,8 @@
 
 package com.example.petclinic.fixture;
 
+import com.example.petclinic.dom.Owner;
+import com.example.petclinic.dom.Owners;
 import com.example.petclinic.dom.Pet;
 import com.example.petclinic.dom.PetSpecies;
 import com.example.petclinic.dom.Pets;
@@ -28,31 +30,29 @@ import org.apache.isis.objectstore.jdo.applib.service.support.IsisJdoSupport;
 
 public class PetClinicFixture extends AbstractFixture {
 
-    
     @Override
     public void install() {
 
         isisJdoSupport.executeUpdate("delete from \"Pet\"");
 
         installObjects();
-        
+
         getContainer().flush();
     }
 
     private void installObjects() {
 
-        create("Bello", PetSpecies.DOG);
-        create("Hector", PetSpecies.DOG);
-        create("Tweety", PetSpecies.BIRD);
+        create("Bello", PetSpecies.DOG, owners.addOwner("Bill", "Gates"));
+        create("Hector", PetSpecies.DOG, owners.addOwner("Larry", "Ellison"));
+        create("Tweety", PetSpecies.BIRD, owners.addOwner("Mark", "Zuckerberg"));
     }
-
 
     // //////////////////////////////////////
 
-    private Pet create(final String name, PetSpecies petSpecies) {
-        return pets.addPet(name, petSpecies);
+    private Pet create(final String name, final PetSpecies petSpecies, final Owner owner) {
+        return pets.addPet(name, petSpecies, owner);
     }
-
+    
 
     // //////////////////////////////////////
     // Injected services
@@ -60,6 +60,9 @@ public class PetClinicFixture extends AbstractFixture {
 
     @javax.inject.Inject
     private Pets pets;
+
+    @javax.inject.Inject
+    private Owners owners;
 
     @javax.inject.Inject
     private IsisJdoSupport isisJdoSupport;

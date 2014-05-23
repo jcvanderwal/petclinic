@@ -24,8 +24,11 @@ import javax.jdo.annotations.VersionStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bookmarkable;
+import org.apache.isis.applib.annotation.Bounded;
+import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.util.ObjectContracts;
 
 @javax.jdo.annotations.PersistenceCapable(identityType = IdentityType.DATASTORE)
@@ -36,6 +39,7 @@ import org.apache.isis.applib.util.ObjectContracts;
         strategy = VersionStrategy.VERSION_NUMBER,
         column = "version")
 @Bookmarkable
+@Bounded
 public class Pet implements Comparable<Pet> {
 
     // //////////////////////////////////////
@@ -69,6 +73,20 @@ public class Pet implements Comparable<Pet> {
         this.petSpecies = petSpecies;
     }
 
+    // //////////////////////////////////////
+    
+    private Owner owner;
+
+    @Column(name="ownerId", allowsNull="true")
+    @Hidden(where=Where.REFERENCES_PARENT)
+    public Owner getOwner() {
+        return owner;
+    }
+    
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+    
     // //////////////////////////////////////
     // compareTo
     // //////////////////////////////////////

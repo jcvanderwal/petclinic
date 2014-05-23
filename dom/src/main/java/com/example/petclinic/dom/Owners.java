@@ -27,18 +27,18 @@ import org.apache.isis.applib.annotation.Bookmarkable;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
-public class Pets {
+public class Owners {
 
     // //////////////////////////////////////
     // Identification in the UI
     // //////////////////////////////////////
 
     public String getId() {
-        return "pet";
+        return "owner";
     }
 
     public String iconName() {
-        return "Pet";
+        return "Owners";
     }
 
     // //////////////////////////////////////
@@ -48,27 +48,25 @@ public class Pets {
     @Bookmarkable
     @ActionSemantics(Of.SAFE)
     @MemberOrder(sequence = "1")
-    public List<Pet> allPets() {
-        return container.allInstances(Pet.class);
+    public List<Owner> allOwners() {
+        return container.allInstances(Owner.class);
     }
 
     // //////////////////////////////////////
     // Create (action)
     // //////////////////////////////////////
-    
+
     @MemberOrder(sequence = "2")
-    public Pet addPet(
-            final @Named("Name") String name,
-            final @Named("Species") PetSpecies petSpecies, 
-            final Owner owner) {
-        final Pet obj = container.newTransientInstance(Pet.class);
-        obj.setName(name);
-        obj.setPetSpecies(petSpecies);
-        obj.setOwner(owner);
+    public Owner addOwner(
+            final @Named("First name") String firstName,
+            final @Named("Last name") String lastName) {
+        final Owner obj = container.newTransientInstance(Owner.class);
+        obj.setFirstName(firstName);
+        obj.setLastName(lastName);
         container.persistIfNotAlready(obj);
         return obj;
     }
-    
+
     // //////////////////////////////////////
     // Injected services
     // //////////////////////////////////////

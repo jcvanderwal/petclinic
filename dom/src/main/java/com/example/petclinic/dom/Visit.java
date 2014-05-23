@@ -10,11 +10,14 @@ import javax.jdo.annotations.Version;
 import javax.jdo.annotations.VersionStrategy;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import org.apache.isis.applib.annotation.Disabled;
+import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.Immutable;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MultiLine;
+import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.util.ObjectContracts;
 
@@ -73,17 +76,53 @@ public class Visit implements Comparable<Visit> {
 
     // //////////////////////////////////////
 
-    private String diagnose;
+    private String note;
 
     @MemberOrder(sequence = "4")
     @MultiLine(numberOfLines = 5)
     @Column(allowsNull = "true")
-    public String getDiagnose() {
-        return diagnose;
+    public String getNote() {
+        return note;
     }
 
-    public void setDiagnose(String diagnose) {
-        this.diagnose = diagnose;
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    // //////////////////////////////////////
+
+    @Hidden
+    public Visit checkIn(final @Named("Note") String note) {
+        setCheckInTime(DateTime.now());
+        appendNote(": *Check-in*", note);
+        return this;
+    }
+
+    public Visit checkOut(final @Named("Note") String note) {
+        setCheckOutTime(DateTime.now());
+        appendNote(": *Check-out*", note);
+        return this;
+    }
+
+    public String disableCheckOut(String diagnose) {
+        return getCheckOutTime() != null ? "Already checked out" : null;
+    }
+
+    // //////////////////////////////////////
+
+    public Visit logEvent(@Named("Note") String note) {
+        appendNote(": *Log*", note);
+        return this;
+    }
+
+    private void appendNote(String event, String note) {
+        final String currentNote = getNote() == null ? "" : getNote();
+        setNote(currentNote
+                .concat(LocalDate.now().toString()
+                        .concat(event)
+                        .concat("\n")
+                        .concat(note)
+                        .concat("\n")));
     }
 
     // //////////////////////////////////////

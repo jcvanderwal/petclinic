@@ -64,11 +64,10 @@ public class Visits {
     @MemberOrder(sequence = "2")
     public Visit addVisit(
             Pet pet,
-            @Named("Diagnose") String diagnose) {
+            @Named("Note") String note) {
         final Visit obj = container.newTransientInstance(Visit.class);
         obj.setPet(pet);
-        obj.setCheckInTime(DateTime.now()) ;
-        obj.setDiagnose(diagnose);
+        obj.checkIn(note);
         container.persistIfNotAlready(obj);
         return obj;
     }

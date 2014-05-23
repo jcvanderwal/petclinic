@@ -6,6 +6,8 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.Queries;
+import javax.jdo.annotations.Query;
 import javax.jdo.annotations.Version;
 import javax.jdo.annotations.VersionStrategy;
 
@@ -24,6 +26,11 @@ import org.apache.isis.applib.util.ObjectContracts;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @DatastoreIdentity(strategy = IdGeneratorStrategy.IDENTITY, column = "id")
 @Version(strategy = VersionStrategy.VERSION_NUMBER, column = "version")
+@Queries({
+        @Query(name = "findByPet", language = "JDOQL",
+                value = "SELECT FROM com.example.petclinic.dom.Visit "
+                        + "WHERE pet == :pet")
+})
 @Immutable
 public class Visit implements Comparable<Visit> {
 

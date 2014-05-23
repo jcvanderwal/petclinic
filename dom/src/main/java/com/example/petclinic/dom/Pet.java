@@ -20,11 +20,12 @@ package com.example.petclinic.dom;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Query;
 import javax.jdo.annotations.VersionStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.AutoComplete;
 import org.apache.isis.applib.annotation.Bookmarkable;
-import org.apache.isis.applib.annotation.Bounded;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Title;
@@ -38,8 +39,11 @@ import org.apache.isis.applib.util.ObjectContracts;
 @javax.jdo.annotations.Version(
         strategy = VersionStrategy.VERSION_NUMBER,
         column = "version")
+@Query(name = "findByName", language = "JDOQL",
+        value = "SELECT FROM com.example.petclinic.dom.Pet "
+                + "WHERE name.matches(:regex)")
 @Bookmarkable
-@Bounded
+@AutoComplete(action = "findPet", repository = Pets.class)
 public class Pet implements Comparable<Pet> {
 
     // //////////////////////////////////////
@@ -74,19 +78,20 @@ public class Pet implements Comparable<Pet> {
     }
 
     // //////////////////////////////////////
-    
+
     private Owner owner;
 
-    @Column(name="ownerId", allowsNull="true")
-    @Hidden(where=Where.REFERENCES_PARENT)
+    @Column(name = "ownerId", allowsNull = "true")
+    @Hidden(where = Where.REFERENCES_PARENT)
+    @Title(sequence = "2", prepend = ", (", append=")")
     public Owner getOwner() {
         return owner;
     }
-    
+
     public void setOwner(Owner owner) {
         this.owner = owner;
     }
-    
+
     // //////////////////////////////////////
     // compareTo
     // //////////////////////////////////////

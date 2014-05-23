@@ -22,14 +22,18 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.joda.time.DateTime;
-
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.annotation.Bookmarkable;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.NotContributed;
+import org.apache.isis.applib.annotation.NotContributed.As;
+import org.apache.isis.applib.annotation.NotInServiceMenu;
+import org.apache.isis.applib.annotation.Render;
+import org.apache.isis.applib.annotation.Render.Type;
+import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.clock.ClockService;
 
 public class Visits {
@@ -70,6 +74,16 @@ public class Visits {
         obj.checkIn(note);
         container.persistIfNotAlready(obj);
         return obj;
+    }
+
+    // //////////////////////////////////////
+
+    @Render(Type.EAGERLY)
+    @NotInServiceMenu
+    @NotContributed(As.ACTION)
+    public List<Visit> visits(Pet pet) {
+        return container.allMatches(
+                new QueryDefault<Visit>(Visit.class, "findByPet", "pet", pet));
     }
 
     // //////////////////////////////////////

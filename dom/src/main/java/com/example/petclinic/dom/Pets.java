@@ -26,6 +26,7 @@ import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.annotation.Bookmarkable;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.query.QueryDefault;
 
 public class Pets {
 
@@ -55,11 +56,11 @@ public class Pets {
     // //////////////////////////////////////
     // Create (action)
     // //////////////////////////////////////
-    
+
     @MemberOrder(sequence = "2")
     public Pet addPet(
             final @Named("Name") String name,
-            final @Named("Species") PetSpecies petSpecies, 
+            final @Named("Species") PetSpecies petSpecies,
             final Owner owner) {
         final Pet obj = container.newTransientInstance(Pet.class);
         obj.setName(name);
@@ -68,7 +69,18 @@ public class Pets {
         container.persistIfNotAlready(obj);
         return obj;
     }
-    
+
+    // //////////////////////////////////////
+
+    public List<Pet> findPet(@Named("Part of name") String part) {
+        if (part == null || part.length() ==0){
+            return null;
+        }
+        return container.allMatches(
+                new QueryDefault<Pet>(
+                        Pet.class, "findByName", "regex", "(?i).*" + part + ".*"));
+    }
+
     // //////////////////////////////////////
     // Injected services
     // //////////////////////////////////////

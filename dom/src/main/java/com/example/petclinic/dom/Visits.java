@@ -22,10 +22,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.joda.time.DateTime;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.annotation.Bookmarkable;
+import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.NotContributed;
@@ -84,6 +87,18 @@ public class Visits {
     public List<Visit> visits(Pet pet) {
         return container.allMatches(
                 new QueryDefault<Visit>(Visit.class, "findByPet", "pet", pet));
+    }
+
+    @Hidden
+    public List<Visit> findClosedSinceDate(DateTime dateTime) {
+        return container.allMatches(
+                new QueryDefault<Visit>(Visit.class, "findClosedSinceDate", "dateTime", dateTime));
+    }
+
+    @Hidden
+    public List<Visit> findActive() {
+        return container.allMatches(
+                new QueryDefault<Visit>(Visit.class, "findActive"));
     }
 
     // //////////////////////////////////////

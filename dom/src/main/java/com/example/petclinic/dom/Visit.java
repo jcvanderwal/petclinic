@@ -29,7 +29,13 @@ import org.apache.isis.applib.util.ObjectContracts;
 @Queries({
         @Query(name = "findByPet", language = "JDOQL",
                 value = "SELECT FROM com.example.petclinic.dom.Visit "
-                        + "WHERE pet == :pet")
+                        + "WHERE pet == :pet"),
+        @Query(name = "findActive", language = "JDOQL",
+                value = "SELECT FROM com.example.petclinic.dom.Visit "
+                        + "WHERE checkOutTime == null"),
+        @Query(name = "findClosedSinceDate", language = "JDOQL",
+                value = "SELECT FROM com.example.petclinic.dom.Visit "
+                        + "WHERE checkOutTime >= :dateTime")
 })
 @Immutable
 public class Visit implements Comparable<Visit> {

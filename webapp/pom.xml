@@ -16,16 +16,17 @@
   KIND, either express or implied.  See the License for the
   specific language governing permissions and limitations
   under the License.
---><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.example</groupId>
-        <artifactId>petclinic</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <groupId>org.apache.isis.example.application</groupId>
+        <artifactId>simpleapp</artifactId>
+        <version>1.9.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>petclinic-webapp</artifactId>
+    <artifactId>simpleapp-webapp</artifactId>
     <name>Simple App Webapp</name>
 
     <description>This module runs both the Wicket viewer and the Restfulobjects viewer in a single webapp configured to run using the datanucleus object store.</description>
@@ -109,9 +110,15 @@
                             <pluginExecutions>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>org.codehaus.mojo</groupId>
-                                        <artifactId>build-helper-maven-plugin</artifactId>
-                                        <versionRange>[1.5,)</versionRange>
+                                        <groupId>
+                                            org.codehaus.mojo
+                                        </groupId>
+                                        <artifactId>
+                                            build-helper-maven-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [1.5,)
+                                        </versionRange>
                                         <goals>
                                             <goal>maven-version</goal>
                                         </goals>
@@ -133,7 +140,7 @@
         <!-- other modules in this project -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>petclinic-dom</artifactId>
+            <artifactId>simpleapp-dom</artifactId>
             <exclusions>
                 <exclusion>
                     <!-- so don't pick up transitive dependency to asm 4.0.0 -->
@@ -144,7 +151,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>petclinic-fixture</artifactId>
+            <artifactId>simpleapp-fixture</artifactId>
             <exclusions>
                 <exclusion>
                     <!-- so don't pick up transitive dependency to asm 4.0.0 -->
@@ -305,36 +312,36 @@
                         <artifactId>maven-antrun-plugin</artifactId>
                         <configuration>
                             <target>
-                                <property name="compile_classpath" refid="maven.compile.classpath" />
-                                <property name="runtime_classpath" refid="maven.runtime.classpath" />
-                                <property name="test_classpath" refid="maven.test.classpath" />
-                                <property name="plugin_classpath" refid="maven.plugin.classpath" />
+                                <property name="compile_classpath" refid="maven.compile.classpath"/>
+                                <property name="runtime_classpath" refid="maven.runtime.classpath"/>
+                                <property name="test_classpath" refid="maven.test.classpath"/>
+                                <property name="plugin_classpath" refid="maven.plugin.classpath"/>
 
-                                <echo message="" />
-                                <echo message="" />
-                                <echo message="jrebel.jar             = ${jrebel.jar}" />
-                                <echo message="isis_jrebel_plugin.jar = ${isis_jrebel_plugin.jar}" />
-                                <echo message="target.dir             = ${target.dir}" />
-                                <echo message="" />
-                                <echo message="" />
+                                <echo message=""/>
+                                <echo message=""/>
+                                <echo message="jrebel.jar             = ${jrebel.jar}"/>
+                                <echo message="isis_jrebel_plugin.jar = ${isis_jrebel_plugin.jar}"/>
+                                <echo message="target.dir             = ${target.dir}"/>
+                                <echo message=""/>
+                                <echo message=""/>
 
                                 <exec executable="java" failonerror="true">
-                                    <arg value="-javaagent:${jrebel.jar}" />
-                                    <arg value="-Drebel.log=false" />
-                                    <arg value="-Drebel.check_class_hash=true" />
-                                    <arg value="-Drebel.packages_exclude=org.apache.isis" />
+                                    <arg value="-javaagent:${jrebel.jar}"/>
+                                    <arg value="-Drebel.log=false"/>
+                                    <arg value="-Drebel.check_class_hash=true"/>
+                                    <arg value="-Drebel.packages_exclude=org.apache.isis"/>
 
                                     <!-- as used in the rebel.xml in the dom project -->
-                                    <arg value="-Dproject.root=${project.basedir}/.." />
-                                    <arg value="-Dtarget.dir=${target.dir}" />
+                                    <arg value="-Dproject.root=${project.basedir}/.."/>
+                                    <arg value="-Dtarget.dir=${target.dir}"/>
 
-                                    <arg value="-Drebel.plugins=${isis_jrebel_plugin.jar}" />
-                                    <arg value="-Disis-jrebel-plugin.packagePrefix=${isis-jrebel-plugin.packagePrefix}" />
-                                    <arg value="-Disis-jrebel-plugin.loggingLevel=${isis-jrebel-plugin.loggingLevel}" />
-                                    <arg value="-XX:MaxPermSize=128m" />
-                                    <arg value="-classpath" />
-                                    <arg value="${runtime_classpath}" />
-                                    <arg value="org.apache.isis.WebServer" />
+                                    <arg value="-Drebel.plugins=${isis_jrebel_plugin.jar}"/>
+                                    <arg value="-Disis-jrebel-plugin.packagePrefix=${isis-jrebel-plugin.packagePrefix}"/>
+                                    <arg value="-Disis-jrebel-plugin.loggingLevel=${isis-jrebel-plugin.loggingLevel}"/>
+                                    <arg value="-XX:MaxPermSize=128m"/>
+                                    <arg value="-classpath"/>
+                                    <arg value="${runtime_classpath}"/>
+                                    <arg value="org.apache.isis.WebServer"/>
                                 </exec>
                             </target>
                         </configuration>
@@ -343,14 +350,14 @@
             </build>
         </profile>
         <profile>
-            <id>neo4j</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.datanucleus</groupId>
-                    <artifactId>datanucleus-neo4j</artifactId>
-                    <version>3.2.3</version>
-                </dependency>
-            </dependencies>
+        	<id>neo4j</id>
+        	<dependencies>
+		        <dependency>
+		        	<groupId>org.datanucleus</groupId>
+		        	<artifactId>datanucleus-neo4j</artifactId>
+		        	<version>4.0.4</version>
+		        </dependency>
+        	</dependencies>
         </profile>
     </profiles>
 

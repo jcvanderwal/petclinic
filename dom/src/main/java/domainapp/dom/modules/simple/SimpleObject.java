@@ -60,8 +60,7 @@ import org.apache.isis.applib.util.ObjectContracts;
 @javax.jdo.annotations.Unique(name="SimpleObject_name_UNQ", members = {"name"})
 @DomainObject
 @DomainObjectLayout(
-        bookmarking = BookmarkPolicy.AS_ROOT,
-        cssClassFa = "fa-flag"
+        bookmarking = BookmarkPolicy.AS_ROOT
 )
 public class SimpleObject implements Comparable<SimpleObject> {
 

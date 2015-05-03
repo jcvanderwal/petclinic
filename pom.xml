@@ -16,14 +16,12 @@
   KIND, either express or implied.  See the License for the
   specific language governing permissions and limitations
   under the License.
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+--><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.apache.isis.example.application</groupId>
-    <artifactId>simpleapp</artifactId>
-    <version>1.9.0-SNAPSHOT</version>
+    <groupId>com.example</groupId>
+    <artifactId>petclinic</artifactId>
+    <version>1.0-SNAPSHOT</version>
 
     <name>Simple App</name>
 
@@ -35,6 +33,8 @@
 
     <properties>
         <isis.version>1.9.0-SNAPSHOT</isis.version>
+
+        <isis-metamodel-paraname8.version>1.9.0-SNAPSHOT</isis-metamodel-paraname8.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -50,14 +50,12 @@
                 <enabled>false</enabled>
             </releases>
             <snapshots>
-                <enabled>true</enabled>
             </snapshots>
         </repository>
         <repository>
             <id>Cloudbees snapshots</id>
             <url>http://repository-estatio.forge.cloudbees.com/snapshot/</url>
             <snapshots>
-                <enabled>true</enabled>
             </snapshots>
             <releases>
                 <enabled>false</enabled>
@@ -259,10 +257,8 @@
                                 <patterns>
                                     <pattern>Permission to copy in any form is granted for use</pattern>
                                     <pattern>Permission to use, copy, modify and distribute the DocBook DTD</pattern>
-                                    <pattern>is hereby granted in perpetuity, provided that the above copyright
-                                    </pattern>
-                                    <pattern>This is the catalog data file for DocBook XML V4.5. It is provided as
-                                    </pattern>
+                                    <pattern>is hereby granted in perpetuity, provided that the above copyright</pattern>
+                                    <pattern>This is the catalog data file for DocBook XML V4.5. It is provided as</pattern>
                                     <pattern>XML Catalog data for DocBook XML V4.5</pattern>
                                     <pattern>DocBook additional general entities V4.5</pattern>
                                     <pattern>XML EXCHANGE TABLE MODEL DECLARATION MODULE</pattern>
@@ -310,13 +306,6 @@
         </plugins>
     </build>
 
-    <modules>
-        <module>dom</module>
-        <module>fixture</module>
-        <module>integtests</module>
-        <module>webapp</module>
-    </modules>
-
     <dependencyManagement>
         <dependencies>
 
@@ -346,18 +335,24 @@
             <!-- this project's own modules -->
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>simpleapp-dom</artifactId>
-                <version>${project.version}</version>
+                <artifactId>petclinic-dom</artifactId>
+                <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>simpleapp-fixture</artifactId>
-                <version>${project.version}</version>
+                <artifactId>petclinic-fixture</artifactId>
+                <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>simpleapp-webapp</artifactId>
-                <version>${project.version}</version>
+                <artifactId>petclinic-webapp</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.isisaddons.metamodel.paraname8</groupId>
+                <artifactId>isis-metamodel-paraname8-dom</artifactId>
+                <version>${isis-metamodel-paraname8.version}</version>
             </dependency>
 
         </dependencies>
@@ -378,4 +373,10 @@
         </profile>
     </profiles>
 
+  <modules>
+    <module>dom</module>
+    <module>fixture</module>
+    <module>integtests</module>
+    <module>webapp</module>
+  </modules>
 </project>

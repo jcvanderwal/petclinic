@@ -16,27 +16,24 @@
   KIND, either express or implied.  See the License for the
   specific language governing permissions and limitations
   under the License.
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+--><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.apache.isis.example.application</groupId>
-        <artifactId>simpleapp</artifactId>
-        <version>1.9.0-SNAPSHOT</version>
+        <groupId>com.example</groupId>
+        <artifactId>petclinic</artifactId>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>simpleapp-dom</artifactId>
+    <artifactId>petclinic-dom</artifactId>
     <name>Simple App DOM</name>
 
     <build>
         <resources>
             <resource>
-                <filtering>false</filtering>
                 <directory>src/main/resources</directory>
             </resource>
             <resource>
-                <filtering>false</filtering>
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**</include>
@@ -143,10 +140,6 @@
                 </dependency>
                 <dependency>
                     <groupId>org.datanucleus</groupId>
-                    <artifactId>datanucleus-jodatime</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>org.datanucleus</groupId>
                     <artifactId>datanucleus-api-jdo</artifactId>
                 </dependency>
             </dependencies>
@@ -154,7 +147,6 @@
         <profile>
             <id>isis-validate</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <plugins>

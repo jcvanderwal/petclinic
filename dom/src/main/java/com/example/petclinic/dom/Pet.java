@@ -30,6 +30,7 @@ import javax.jdo.annotations.VersionStrategy;
 import com.google.common.collect.ComparisonChain;
 
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Title;
@@ -41,6 +42,7 @@ import static org.apache.isis.applib.util.Enums.enumToCamelCase;
 @DatastoreIdentity(strategy = IdGeneratorStrategy.IDENTITY, column = "id")
 @Version(strategy = VersionStrategy.VERSION_NUMBER, column = "version")
 @Unique(name = "Name_species_UNQ", members = {"name", "species"})
+@DomainObject(autoCompleteAction = "findByName", autoCompleteRepository = Pets.class)
 public class Pet implements Comparable<Pet> {
 
     public String iconName() {

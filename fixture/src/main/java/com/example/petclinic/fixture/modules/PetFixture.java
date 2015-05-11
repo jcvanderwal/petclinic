@@ -17,6 +17,8 @@ package com.example.petclinic.fixture.modules;/*
  *  under the License.
  */
 
+import com.example.petclinic.dom.Owner;
+import com.example.petclinic.dom.Owners;
 import com.example.petclinic.dom.Pet;
 import com.example.petclinic.dom.PetSpecies;
 import com.example.petclinic.dom.Pets;
@@ -31,15 +33,23 @@ public class PetFixture extends PetClinicAbstractFixture {
     @Override protected void execute(final ExecutionContext ec) {
 
         deleteFrom(Pet.class);
+        deleteFrom(Owner.class);
 
-        create(ec, "Bello", PetSpecies.DOG);
-        create(ec, "Hector", PetSpecies.DOG);
-        create(ec, "Tweety", PetSpecies.BIRD);
+        create(ec, "Bello", PetSpecies.DOG, "Bill", "Gates");
+        create(ec, "Hector", PetSpecies.CAT, "Linus", "Torvalds");
+        create(ec, "Tweety", PetSpecies.BIRD, "Mark", "Zuckerberg");
 
     }
 
-    private void create(final ExecutionContext ec, final String name, final PetSpecies species) {
-        ec.addResult(this, pets.addPet(name, species));
+    private void create(
+            final ExecutionContext ec,
+            final String name,
+            final PetSpecies species,
+            final String firstName,
+            final String lastName) {
+        final Owner owner = owners.addOwner(firstName, lastName);
+        final Pet pet = pets.addPet(name, species, owner);
+        ec.addResult(this, pet);
     }
 
     // //////////////////////////////////////
@@ -48,5 +58,8 @@ public class PetFixture extends PetClinicAbstractFixture {
 
     @javax.inject.Inject
     private Pets pets;
+
+    @javax.inject.Inject
+    private Owners owners;
 
 }

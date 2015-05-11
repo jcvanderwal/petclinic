@@ -70,7 +70,7 @@ public class PetsTest {
             });
 
             // when
-            final Pet obj = pets.addPet("Pookie", PetSpecies.CAT);
+            final Pet obj = pets.addPet("Pookie", PetSpecies.CAT, null);
 
             // then
             assertThat(obj).isEqualTo(pet);

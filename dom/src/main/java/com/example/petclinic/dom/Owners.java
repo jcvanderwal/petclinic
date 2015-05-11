@@ -18,7 +18,6 @@
  */
 package com.example.petclinic.dom;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -28,38 +27,31 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.MemberOrder;
 
 @DomainService
-public class Pets {
+public class Owners {
 
     public String getId() {
-        return "pet";
+        return "owner";
     }
 
     public String iconName() {
-        return "Pet";
+        return "Owner";
     }
 
-    public List<Pet> allPets() {
-        return container.allInstances(Pet.class);
+    public List<Owner> allOwners() {
+        return container.allInstances(Owner.class);
     }
 
-    public List<Pet> findByName(String name) {
-        List<Pet> result = new ArrayList<>();
-        for (Pet pet : allPets()) {
-            if (pet.getName().contains(name))
-            result.add(pet);
-        }
-        return result;
+    public List<Owner> findByName(String name) {
+        return container.allMatches(Owner.class, Owner.Predicates.contains(name));
     }
 
     @MemberOrder(sequence = "2")
-    public Pet addPet(
-            final String name,
-            final PetSpecies petSpecies,
-            final Owner owner) {
-        final Pet obj = container.newTransientInstance(Pet.class);
-        obj.setName(name);
-        obj.setSpecies(petSpecies);
-        obj.setOwner(owner);
+    public Owner addOwner(
+            final String firstName,
+            final String lastName) {
+        final Owner obj = container.newTransientInstance(Owner.class);
+        obj.setFirstName(firstName);
+        obj.setLastName(lastName);
         container.persistIfNotAlready(obj);
         return obj;
     }

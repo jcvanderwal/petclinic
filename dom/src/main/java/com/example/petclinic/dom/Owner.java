@@ -18,85 +18,104 @@
  */
 package com.example.petclinic.dom;
 
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Unique;
 import javax.jdo.annotations.Version;
 import javax.jdo.annotations.VersionStrategy;
 
+import com.google.common.base.Predicate;
 import com.google.common.collect.ComparisonChain;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Title;
 
-import static org.apache.isis.applib.util.Enums.enumToCamelCase;
-
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @DatastoreIdentity(strategy = IdGeneratorStrategy.IDENTITY, column = "id")
 @Version(strategy = VersionStrategy.VERSION_NUMBER, column = "version")
-@Unique(name = "Name_species_UNQ", members = {"name", "species"})
-public class Pet implements Comparable<Pet> {
+@Unique(name = "Owner_firstName_lastName_UNQ", members = { "firstName", "lastName" })
+public class Owner implements Comparable<Owner> {
 
-    public String iconName() {
-        return enumToCamelCase(getSpecies());
-    }
-
-    //region >  name (property)
-    private String name;
+    //region > First Name (property)
+    private String firstName;
 
     @Column(allowsNull = "false")
-    @Title(sequence = "1")
+    @Title(sequence = "2")
     @MemberOrder(sequence = "1")
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(final String name) {
-        this.name = name;
+    public void setFirstName(final String firstName) {
+        this.firstName = firstName;
     }
     //endregion
 
-    //region >  species (property)
-    private PetSpecies species;
+    //region > Last Name (property)
+    private String lastName;
 
-    @MemberOrder(sequence = "2")
     @Column(allowsNull = "false")
-    public PetSpecies getSpecies() {
-        return species;
+    @Title(sequence = "1", append = ", ")
+    @MemberOrder(sequence = "1")
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSpecies(PetSpecies species) {
-        this.species = species;
+    public void setLastName(final String lastName) {
+        this.lastName = lastName;
     }
     //endregion
 
-    //region > owner (property)
-    private Owner owner;
+    //region > pets (collection)
+    @Persistent(mappedBy = "owner", dependentElement = "false")
+    private SortedSet<Pet> pets = new TreeSet<Pet>();
 
     @MemberOrder(sequence = "3")
-    @Column(name = "ownerId", allowsNull = "true")
-    public Owner getOwner() {
-        return owner;
+    public SortedSet<Pet> getPets() {
+        return pets;
     }
 
-    public void setOwner(final Owner owner) {
-        this.owner = owner;
+    public void setPets(final SortedSet<Pet> pets) {
+        this.pets = pets;
     }
     //endregion
 
+    //region > compareTo
     @Override
-    public int compareTo(Pet other) {
+    public int compareTo(Owner other) {
         return ComparisonChain.start()
-                .compare(this.getName(), other.getName())
+                .compare(this.getLastName(), other.getLastName())
+                .compare(this.getFirstName(), other.getFirstName())
                 .result();
     }
+    //endregion
 
+    //region > Injected
     @javax.inject.Inject
     @SuppressWarnings("unused")
     private DomainObjectContainer container;
+    //endregion
 
+    //region > predicates
+    public static class Predicates {
+
+        public static Predicate<Owner> contains(final String string) {
+            return new Predicate<Owner>() {
+                @Override
+                public boolean apply(final Owner owner) {
+                    return owner.getFirstName().toLowerCase().contains(string.toLowerCase()) ||
+                            owner.getLastName().toLowerCase().contains(string.toLowerCase());
+                }
+            };
+        }
+    }
+    //endregion
 }

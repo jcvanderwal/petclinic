@@ -31,7 +31,9 @@ import com.google.common.collect.ComparisonChain;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.annotation.Where;
 
 import static org.apache.isis.applib.util.Enums.enumToCamelCase;
 
@@ -79,6 +81,7 @@ public class Pet implements Comparable<Pet> {
 
     @MemberOrder(sequence = "3")
     @Column(name = "ownerId", allowsNull = "true")
+    @PropertyLayout(hidden = Where.REFERENCES_PARENT)
     public Owner getOwner() {
         return owner;
     }

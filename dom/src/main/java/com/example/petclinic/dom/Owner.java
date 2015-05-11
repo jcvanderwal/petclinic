@@ -35,7 +35,9 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.ComparisonChain;
 
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.Title;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
@@ -79,6 +81,7 @@ public class Owner implements Comparable<Owner> {
     private SortedSet<Pet> pets = new TreeSet<Pet>();
 
     @MemberOrder(sequence = "3")
+    @CollectionLayout(render = RenderType.EAGERLY)
     public SortedSet<Pet> getPets() {
         return pets;
     }

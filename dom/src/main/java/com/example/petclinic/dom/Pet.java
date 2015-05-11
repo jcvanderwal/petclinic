@@ -93,6 +93,18 @@ public class Pet implements Comparable<Pet> {
     }
     //endregion
 
+    //region > changeOwner (action)
+    @MemberOrder(sequence = "1")
+    public Pet changeOwner(final Owner newOwner) {
+        setOwner(newOwner);
+        return this;
+    }
+
+    public String validateChangeOwner(final Owner newOwner) {
+        return newOwner == getOwner() ? "Already the owner" : null;
+    }
+    //endregion
+
     @Override
     public int compareTo(Pet other) {
         return ComparisonChain.start()

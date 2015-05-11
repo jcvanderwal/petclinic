@@ -22,17 +22,20 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import com.google.common.base.Predicate;
+
 import org.joda.time.DateTime;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.services.clock.ClockService;
 
-@DomainService
+@DomainService(nature = NatureOfService.VIEW)
 public class Visits {
 
     public String getId() {
@@ -42,7 +45,6 @@ public class Visits {
     public String iconName() {
         return "Visit";
     }
-
 
     @MemberOrder(sequence = "1")
     @Action(semantics = SemanticsOf.SAFE)
@@ -57,7 +59,7 @@ public class Visits {
         final Visit obj = container.newTransientInstance(Visit.class);
         obj.setPet(pet);
         obj.setCheckInTime(DateTime.now()) ;
-        obj.setNotes(notes);
+        obj.addNote(notes);
         container.persistIfNotAlready(obj);
         return obj;
     }

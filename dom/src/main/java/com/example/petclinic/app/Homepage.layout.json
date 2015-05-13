@@ -1,0 +1,49 @@
+{
+  "columns": [
+    {
+      "span": 0,
+      "memberGroups": {}
+    },
+    {
+      "span": 0,
+      "memberGroups": {}
+    },
+    {
+      "span": 0,
+      "memberGroups": {}
+    },
+    {
+      "span": 12,
+      "collections": {
+        "activeVisits": {
+          "collectionLayout": {
+            "named": "Active Visits",
+            "paged": 12,
+            "render": "EAGERLY"
+          }
+        },
+        "inactiveVisits": {
+          "collectionLayout": {
+            "named": "Inactive Visits",
+            "paged": 12,
+            "render": "EAGERLY"
+          }
+        }
+      }
+    }
+  ],
+  "actions": {
+    "downloadLayout": {
+      "actionLayout": {
+        "cssClassFa": "fa fa-fw fa-download",
+        "named": "Download Layout",
+        "contributed": "AS_ACTION"
+      }
+    },
+    "visitForNewPetAndOwner": {
+      "actionLayout": {
+        "named": "Visit For New Pet And Owner"
+      }
+    }
+  }
+}

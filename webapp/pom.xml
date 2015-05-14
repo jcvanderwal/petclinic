@@ -246,6 +246,11 @@
             <artifactId>isis-metamodel-paraname8-dom</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.isisaddons.module.devutils</groupId>
+            <artifactId>isis-module-devutils-dom</artifactId>
+        </dependency>
+
     </dependencies>
 
     <profiles>

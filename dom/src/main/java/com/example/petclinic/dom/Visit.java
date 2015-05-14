@@ -15,15 +15,20 @@ import com.google.common.collect.ComparisonChain;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 
+import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.PropertyLayout;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.services.clock.ClockService;
 
+import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEvent;
+import org.isisaddons.wicket.fullcalendar2.cpt.applib.CalendarEventable;
+
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @DatastoreIdentity(strategy = IdGeneratorStrategy.IDENTITY, column = "id")
 @Version(strategy = VersionStrategy.VERSION_NUMBER, column = "version")
-public class Visit implements Comparable<Visit> {
+public class Visit implements Comparable<Visit>, CalendarEventable {
 
 
     //region > pet (Property)
@@ -105,6 +110,20 @@ public class Visit implements Comparable<Visit> {
     }
     //endregion
 
+    //region > calender (module)
+    @Programmatic
+    @Override
+    public String getCalendarName() {
+        return "Visit";
+    }
+
+    @Programmatic
+    @Override
+    public CalendarEvent toCalendarEvent() {
+        return new CalendarEvent(getCheckInTime(), "", container.titleOf(this));
+    }
+    //endregion
+
     @Override
     public int compareTo(Visit o) {
         return ComparisonChain.start()
@@ -116,6 +135,7 @@ public class Visit implements Comparable<Visit> {
     @Inject
     private ClockService clockService;
 
-
+    @Inject
+    private DomainObjectContainer container;
 
 }
